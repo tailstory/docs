@@ -14,4 +14,11 @@ npm run lint:docs
 
 Needs the Node version in `.nvmrc`. Merges to `main` deploy.
 
-Prose is [CC0](LICENSE).
+## License
+
+Copyright 2026 Tailstory.
+
+- Prose (`src/content/`) is [CC BY 4.0](LICENSE-CC-BY-4.0). Credit "Tailstory" and link to the page you used.
+- Everything else, and code samples inside the prose, is [Apache 2.0](LICENSE).
+
+The site scaffolding comes from [Nimbus](https://github.com/cloudflare/nimbus) (MIT, copyright Cloudflare, Inc.). The fonts in `src/pages/og/_fonts/` are Inter (SIL Open Font License 1.1).

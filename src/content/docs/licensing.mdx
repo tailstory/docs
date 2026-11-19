@@ -1,0 +1,49 @@
+---
+title: Licensing
+description: Which license each kind of Tailstory work carries, and every place it is declared.
+---
+
+| Work | License | SPDX |
+|---|---|---|
+| Code | Apache License 2.0 | `Apache-2.0` |
+| Tailstory's own prose | Creative Commons Attribution 4.0 | `CC-BY-4.0` |
+| Wiki notes on other vendors' products | CC0 1.0 | `CC0-1.0` |
+
+The copyright holder is always `Tailstory`.
+
+`infrastructure` and `tailstory-dev` are not open source. They carry no license file, so all rights are reserved.
+
+## Code repositories
+
+| Place | What goes there |
+|---|---|
+| `LICENSE` | The Apache 2.0 text from [apache.org](https://www.apache.org/licenses/LICENSE-2.0.txt), unedited. |
+| `README.md` | A closing `## License` section: `Copyright <year> Tailstory.` and a link to `LICENSE`. |
+| `pyproject.toml` | `license = "Apache-2.0"` and `license-files = ["LICENSE"]` under `[project]`. No `License ::` classifiers; the expression replaces them. |
+| `package.json` | `"license": "Apache-2.0"`, on private packages too. |
+| `docs/conf.py` | `copyright = "Tailstory"`. |
+
+PyPI, npm and the GitHub sidebar read these; nothing is set by hand there.
+
+No `NOTICE` file and no per-file license headers. Docs that live inside a code repository carry the code's license.
+
+## Repositories of prose
+
+`tailstory/docs` and `tailstory/wiki` hold two licenses each.
+
+| Place | What goes there |
+|---|---|
+| `LICENSE` | Apache 2.0, for everything outside `src/content/`. |
+| `LICENSE-CC-BY-4.0` or `LICENSE-CC0-1.0` | The Creative Commons text, for `src/content/`. |
+| `README.md` | The `## License` section names both and the folder each covers. |
+| `package.json` | `"license": "Apache-2.0 AND CC-BY-4.0"`, or `"Apache-2.0 AND CC0-1.0"` for the wiki. `AND` because each part has its own license; `OR` would let the reader choose. |
+
+Code samples inside prose are Apache 2.0, so they can be pasted without a credit line.
+
+## Other people's work
+
+A license covers only what Tailstory wrote.
+
+- Copied code keeps its own license and copyright notice, named in the README.
+- Wiki pages describe vendors' products in our own words and link the vendor. Quotes stay short. Screenshots, product names and quoted text stay the vendor's.
+- A request to remove something from the wiki is honored.
