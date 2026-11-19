@@ -12,6 +12,6 @@ npm run build
 npm run lint:docs
 ```
 
-Needs the Node version in `.nvmrc`.
+Needs the Node version in `.nvmrc`. Merges to `main` deploy.
 
 Prose is [CC0](LICENSE).
