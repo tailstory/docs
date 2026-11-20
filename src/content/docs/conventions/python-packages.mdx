@@ -5,38 +5,18 @@ sidebar:
   order: 2
 ---
 
-`ups-sdk` is the model for the rest.
-
 ## Names
 
-| Repository | Distribution | Import |
-|---|---|---|
-| `ups-sdk` | `tailstory-ups` | `ups_sdk` |
-| `usps-sdk` | `tailstory-usps` | `usps_sdk` |
-| `fedex-sdk` | `tailstory-fedex` | `fedex_sdk` |
-| `hermes` | `tailstory-hermes` | `hermes` |
-| `palletinator` | `palletinator` | `palletinator` |
-
-- **An import name never carries the organization's name.** A distribution may; `module-name` under `[tool.uv.build-backend]` sets the import name when the two differ.
+- **An import name never carries the organization's name.** A distribution may, as `tailstory-<name>`; `module-name` under `[tool.uv.build-backend]` sets the import name when the two differ.
 
 ## Layout
 
-```
-.github/workflows/   ci.yaml, docs.yaml, python-publish-pypi.yaml, actions.lock
-docs/                conf.py, index.rst, changelog.rst
-src/<import name>/
-tests/
-.gitattributes       * text=auto eol=lf
-.pre-commit-config.yaml
-noxfile.py
-pyproject.toml
-uv.lock
-wrangler.jsonc
-```
-
+- **Code is in `src/<import name>/` and tests are in `tests/`.**
 - **Sphinx sources sit directly in `docs/`.** No `docs/source`.
 - **Built docs go to `site/` at the repository root.** Git ignores it.
 - **Every tool's cache is under `.cache/`.**
+- **`.gitattributes` is `* text=auto eol=lf`.**
+- **The workflows are `ci.yaml`, `docs.yaml` and `python-publish-pypi.yaml`.**
 
 ## pyproject.toml
 
