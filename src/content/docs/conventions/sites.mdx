@@ -1,0 +1,21 @@
+---
+title: Sites and docs
+description: How a Tailstory site is served, and how a library publishes its docs.
+sidebar:
+  order: 4
+---
+
+- **A site is a Cloudflare Worker that serves static assets and runs no script.**
+- **Workers Builds deploys a site when its pull request merges.** No workflow deploys one.
+- **A Worker's custom domain makes its own DNS record.** `infrastructure` neither creates nor deletes it.
+- **`docs.tailstory.dev` holds Tailstory's own docs: everything that is not a library.**
+- **A library's docs are at `docs.tailstory.dev/<repository>/`, served from the library's own repository.**
+
+## A library's docs
+
+A `wrangler.jsonc` at the root of the library's repository defines the Worker.
+
+- **The Worker is `<repository>-docs`.** It has no `workers.dev` address.
+- **Its build command is the Sphinx build.** `assets.directory` is `./site`.
+- **`assets.base_path` is `/<repository>`.** That puts the docs under the route without a subfolder in `site/`, and needs Wrangler 4.148 or newer.
+- **Its routes are `docs.tailstory.dev/<repository>` and `docs.tailstory.dev/<repository>/*`.** A route wins over the custom domain on the same hostname, so the root site answers every path no library claims.

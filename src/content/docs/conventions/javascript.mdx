@@ -1,0 +1,24 @@
+---
+title: JavaScript repositories
+description: Node, npm and CI in every Tailstory repository that has a package.json.
+sidebar:
+  order: 3
+---
+
+- **`.nvmrc` names a Node 24 version.** CI reads it with `node-version-file`.
+- **`.npmrc` sets `min-release-age=7`.**
+- **One workflow, `CI`, in `.github/workflows/ci.yaml`.**
+- **A repository that uses Biome lints with `npm ci`, then `npx --no-install biome ci .`.**
+- **A repository with Astro has Dependabot ignore `typescript` `>=7`.** `astro check` does not run on it. Every other repository takes TypeScript 7 once its tools run on it.
+
+## Nimbus sites
+
+- **Dependencies are pinned exactly.** `.npmrc` also sets `save-exact=true` and `engine-strict=true`.
+- **CI runs `typecheck`, `build` and `lint:docs`.** No Biome.
+
+## When the cooldown blocks an install
+
+`npm install` fails with `ETARGET` when the only version that fits is under seven days old.
+
+- **Keep `package-lock.json`.** Deleting it makes npm resolve every package again.
+- **Let one package through on the command line.** `npm install --min-release-age-exclude=<package>`. `.npmrc` stays as it is.

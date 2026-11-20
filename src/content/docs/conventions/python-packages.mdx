@@ -1,0 +1,51 @@
+---
+title: Python packages
+description: The layout, checks, docs and release pipeline every Tailstory Python package shares.
+sidebar:
+  order: 2
+---
+
+## Names
+
+- **An import name never carries the organization's name.** A distribution may, as `tailstory-<name>`; `module-name` under `[tool.uv.build-backend]` sets the import name when the two differ.
+
+## Layout
+
+- **Code is in `src/<import name>/` and tests are in `tests/`.**
+- **Sphinx sources sit directly in `docs/`.** No `docs/source`.
+- **Built docs go to `site/` at the repository root.** Git ignores it.
+- **Every tool's cache is under `.cache/`.**
+- **`.gitattributes` is `* text=auto eol=lf`.**
+- **The workflows are `ci.yaml`, `docs.yaml` and `python-publish-pypi.yaml`.**
+
+## pyproject.toml
+
+- **The build backend is `uv_build`.**
+- **`requires-python` is `>=3.14`.**
+- **HTTP goes through `niquests`.**
+- **Dependency groups are `dev`, `docs` and `tests`.**
+- **Ruff selects `ALL`.** Each ignore carries its reason in a comment.
+- **`documentation` is `https://docs.tailstory.dev/<repository>/`.**
+
+## Checks
+
+`ci.yaml` has two jobs, and `nox` runs the same commands locally.
+
+| Job | Commands |
+|---|---|
+| `lint` | `prek run --all-files`, `ruff format --check .`, `ruff check .`, `mypy --strict src/ tests/`, `ty check .` |
+| `test` | `python -m coverage run -m pytest -v`, then `coverage xml` |
+
+- **The same code passes mypy and ty.** A failure is fixed in the code, not with an ignore for one checker.
+- **A failed coverage upload does not fail the job.**
+
+## Docs
+
+- **The build is `sphinx-build --builder dirhtml --nitpicky docs site`.**
+- **`autoapi_dirs` is `["../src"]`.**
+- **`docs.yaml` builds the docs on every pull request and deploys nothing.** [The package's Worker](/conventions/sites/#a-librarys-docs) serves them.
+
+## Releases
+
+- **Publishing a GitHub release publishes to PyPI.** `python-publish-pypi.yaml` builds on every push and pull request, and its `publish` job runs only on a published release.
+- **PyPI trusts the workflow.** No token is stored.
