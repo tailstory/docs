@@ -1,0 +1,41 @@
+---
+title: Every repository
+description: Names, dependencies, GitHub Actions and pull requests in every Tailstory repository.
+sidebar:
+  order: 1
+---
+
+## Names
+
+- **Every repository lives in the `tailstory` organization.** No product gets an organization of its own.
+- **A product's repositories start with the product's name.** `dotforge-core`, `skyda-site`.
+
+## Dependencies
+
+- **A release is seven days old before anything installs it.**
+
+  | Tool | Setting |
+  |---|---|
+  | uv | `exclude-newer = "P7D"` under `[tool.uv]` |
+  | npm | `min-release-age=7` in `.npmrc` |
+  | Dependabot | `cooldown.default-days: 7` on every ecosystem |
+
+- **The lockfile is committed and CI installs from it.** `uv sync --locked`, `npm ci`.
+- **Dependabot groups an ecosystem's updates into one pull request.**
+
+## GitHub Actions
+
+- **An action is referenced by its tag.** `.github/workflows/actions.lock` holds the commit each tag resolves to.
+- **Every repository with a workflow commits `actions.lock`.** `gh actions-lock` writes it and nobody edits it. A new repository has one before its first workflow runs.
+- **No job verifies the lockfile.** The organization's policy does.
+- **Workflows use GitHub's own actions.** The exceptions are `astral-sh/setup-uv` and `pypa/gh-action-pypi-publish`.
+- **A tool that the lockfile installs runs from there.** `npx --no-install biome ci`, with no setup action for the tool.
+- **zizmor is 1.32.0 or newer.** Older versions reject a tag reference.
+- **No outside coverage, test report or dependency review service.** Coverage goes to GitHub code quality.
+
+## Pull requests
+
+- **A pull request is squash-merged.**
+- **A person merges a pull request to `infrastructure`.** Merging changes live DNS.
+- **Nothing links to a page or a route that is not served yet.**
+- **Nothing is built ahead of need.** A dependency, a plugin or an endpoint arrives in the pull request whose feature first uses it.
